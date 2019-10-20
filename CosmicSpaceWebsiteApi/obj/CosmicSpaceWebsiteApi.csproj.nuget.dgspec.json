@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj": {}
+    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj": {
+    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj",
+        "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj",
         "projectName": "CosmicSpaceWebsiteApi",
-        "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj",
+        "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\CosmicSpaceWebsiteApi.csproj",
         "packagesPath": "C:\\Users\\Lukasz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\obj\\",
+        "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj": {
-                "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj"
+              "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj": {
+                "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj"
               }
             }
           }
@@ -88,14 +88,14 @@
         }
       }
     },
-    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj": {
+    "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
+        "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
         "projectName": "CosmicSpaceWebsiteDll",
-        "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
+        "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
         "packagesPath": "C:\\Users\\Lukasz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\obj\\",
+        "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

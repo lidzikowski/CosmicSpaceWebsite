@@ -5525,11 +5525,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
+      "projectUniqueName": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
       "projectName": "CosmicSpaceWebsiteDll",
-      "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
+      "projectPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\CosmicSpaceWebsiteDll.csproj",
       "packagesPath": "C:\\Users\\Lukasz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceGame\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\obj\\",
+      "outputPath": "C:\\Users\\Lukasz\\Documents\\GitHub\\CosmicSpaceWebsite\\CosmicSpaceWebsiteDll\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
