@@ -1,0 +1,46 @@
+﻿@inject NavigationManager navigationManager
+@inject ISessionStorageService sessionStorage
+
+
+
+@if (User == null)
+{
+    <NavLink class="list-group-item list-group-item-dark list-group-item-action" href="login">
+        <span class="oi oi-person" aria-hidden="true" /> Logowanie
+    </NavLink>
+
+    <NavLink class="list-group-item list-group-item-dark list-group-item-action" href="register">
+        <span class="oi oi-pencil" aria-hidden="true" /> Rejestracja
+    </NavLink>
+}
+else
+{
+    <NavLink class="list-group-item list-group-item-dark list-group-item-action" href="userpanel">
+        <span class="oi oi-person" aria-hidden="true" /> Panel użytkownika
+        <span class="badge badge-primary badge-pill" style="float:right;">@User.Pilots.Nickname</span>
+    </NavLink>
+
+    <a class="list-group-item list-group-item-dark list-group-item-action" href="" @onclick="OnLogout">
+        <span class="oi oi-account-logout" aria-hidden="true" /> Wyloguj
+    </a>
+}
+
+@code {
+    private Users User;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            User = await sessionStorage.GetItemAsync<Users>("user");
+        }
+        catch { }
+    }
+
+    private async Task OnLogout()
+    {
+        await sessionStorage.SetItemAsync("user", null);
+        User = null;
+        navigationManager.NavigateTo("/", true);
+    }
+}

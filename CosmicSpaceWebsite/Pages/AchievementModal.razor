@@ -1,0 +1,61 @@
+﻿@inject IModalService ModalService
+
+@if (Pilot != null && Achievement != null)
+{
+    <div class="overflow-auto" style="max-height: 300px;">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Nazwa osiągnięcia</th>
+                    <th scope="col">Postęp</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var property in Achievement.GetType().GetProperties())
+                {
+                    <tr>
+                        <td>@property.Name</td>
+                        
+                        <td>
+                            @if (property.PropertyType == typeof(Dictionary<decimal, decimal>))
+                            {
+                                @foreach (var item in property.GetValue(Achievement) as Dictionary<decimal, decimal>)
+                                {
+                                    <div class="row">
+                                        <div class="col">
+                                            [ID:
+                                            @item.Key
+                                            ]
+                                        </div>
+                                        <div class="col">
+                                            @string.Format("{0:F0}", item.Value)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                @string.Format("{0:F0}", property.GetValue(Achievement))
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    ModalParameters Parameters { get; set; }
+
+    private Pilots Pilot;
+    private Achievement Achievement;
+
+    protected override void OnInitialized()
+    {
+        Pilot = Parameters.Get<Pilots>(nameof(Pilots));
+        Achievement = Achievement.GetAchievement(Pilot.Achievement);
+    }
+}

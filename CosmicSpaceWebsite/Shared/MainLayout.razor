@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="3"
+                SuccessClass="success-toast-override"
+                SuccessIconClass="fa fa-thumbs-up"
+                ErrorIconClass="fa fa-bug" />
+
+<BlazoredModal />
+
+<div class="d-flex justify-content-center">
+
+    <div class="">
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <img src="resources/Logo.png" class="img-fluid" alt="Cosmic Space">
+        </NavLink>
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+
+    <div class="w-25">
+        <div class="list-group-flush p-2 m-2 menu-custom">
+            <NavMenu />
+            <UserMenu />
+        </div>
+    </div>
+
+    <div class="w-75">
+        <div class="mr-3">
+            @Body
+        </div>
+    </div>
+
+</div>
+
+@code {
+
+
+}

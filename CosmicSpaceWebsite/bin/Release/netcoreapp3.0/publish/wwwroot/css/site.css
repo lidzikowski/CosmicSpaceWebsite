@@ -1,0 +1,36 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: gainsboro;
+}
+
+/*****************************************
+https://codepen.io/jaballadares/pen/YVKozy
+*******************************************/
+.sky {
+    position: absolute;
+    background: #17539b;
+    background: -webkit-linear-gradient(to top, #4e91e4, #0a2342);
+    background: linear-gradient(to top, #4e91e4, #0a2342);
+    background: -olinear-gradient(to top, #4e91e4, #0a2342);
+    width: 100%;
+    height: 100vh;
+}
+
+/*****************************************
+https://codepen.io/jaballadares/pen/YVKozy
+*******************************************/
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url('../resources/stars.png') repeat top center;
+    z-index: 0;
+}

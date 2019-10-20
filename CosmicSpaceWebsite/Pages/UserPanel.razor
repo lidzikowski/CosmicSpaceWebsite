@@ -1,0 +1,52 @@
+﻿@page "/userpanel"
+
+@inject NavigationManager navigationManager
+@inject ISessionStorageService sessionStorage
+
+
+
+<h1>Panel użytkownika</h1>
+
+@if (User != null)
+{
+    <p>
+        Witaj, @User.Pilots.Nickname
+    </p>
+
+    @if (User.Pilots.Isdead == 1)
+    {
+        <p>
+            Zostałeś pokonany przez: @User.Pilots.Killerby
+        </p>
+    }
+
+    <p>
+        Adres email: @User.Email
+    </p>
+
+    <p>
+        Newsletter: @User.Emailnewsletter
+    </p>
+
+    <p>
+        Data rejestracji: @User.Registerdate
+    </p>
+}
+
+@code {
+    private Users User;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            User = await sessionStorage.GetItemAsync<Users>("user");
+        }
+        catch { }
+
+        if (User == null)
+            navigationManager.NavigateTo("/");
+    }
+
+
+}
