@@ -24,7 +24,10 @@
     ".NETCoreApp,Version=v3.0": {
       "CosmicSpaceWebsite/1.0.0": {
         "dependencies": {
+          "Blazored.LocalStorage": "2.1.1",
+          "Blazored.Modal": "2.3.0",
           "Blazored.SessionStorage": "1.0.11",
+          "Blazored.Toast": "2.0.7",
           "CosmicSpaceWebsiteDll": "1.0.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.7",
           "Microsoft.AspNetCore.Components": "3.0.0",
@@ -321,6 +324,37 @@
           "CosmicSpaceWebsite.dll": {}
         }
       },
+      "Blazored.LocalStorage/2.1.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.0.0",
+          "Microsoft.AspNetCore.Components.Web": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.LocalStorage.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.LocalStorage.dll": {}
+        }
+      },
+      "Blazored.Modal/2.3.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.0.0",
+          "Microsoft.AspNetCore.Components.Web": "3.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Modal.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Modal.dll": {}
+        }
+      },
       "Blazored.SessionStorage/1.0.11": {
         "dependencies": {
           "Microsoft.AspNetCore.Components": "3.0.0",
@@ -334,6 +368,22 @@
         },
         "compile": {
           "lib/netstandard2.0/Blazored.SessionStorage.dll": {}
+        }
+      },
+      "Blazored.Toast/2.0.7": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.0.0",
+          "Microsoft.AspNetCore.Components.Web": "3.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {
+            "assemblyVersion": "2.0.7.0",
+            "fileVersion": "2.0.7.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Toast.dll": {}
         }
       },
       "BouncyCastle.NetCore/1.8.3": {
@@ -3772,12 +3822,33 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Blazored.LocalStorage/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-C3hls1girWezQy2eVRlngB2gx6CzDn0iWgdgSoa7W6pRf4nK6HOI3MtaWmdNCJQ/bniICIHs+CYvaXqmKx/oLw==",
+      "path": "blazored.localstorage/2.1.1",
+      "hashPath": "blazored.localstorage.2.1.1.nupkg.sha512"
+    },
+    "Blazored.Modal/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KMm8SXLf6VVen4D3c/jnKVP0E1hLs/xXgAgm9vDTXN6bCBJYyCwDRKsbI2QIdf+vTAbYpG61DwsNfGwGwu9Z7g==",
+      "path": "blazored.modal/2.3.0",
+      "hashPath": "blazored.modal.2.3.0.nupkg.sha512"
+    },
     "Blazored.SessionStorage/1.0.11": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-qy2Erz2TtzHEYKRnnucLLzJA2Lt6myF3hZ5MAMUbLolE4ukKTJx1+OtxMrT70UA9PKtPThxtsGs2G4I11igi1w==",
       "path": "blazored.sessionstorage/1.0.11",
       "hashPath": "blazored.sessionstorage.1.0.11.nupkg.sha512"
+    },
+    "Blazored.Toast/2.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+UWRfjB3yPZC4Pb0r8myKZCUJZYdyVZXIVj10pVcRYUo+UxXAM2pDbA1XeRm5rWubvEhfHM9l8CF36p+YdBPiA==",
+      "path": "blazored.toast/2.0.7",
+      "hashPath": "blazored.toast.2.0.7.nupkg.sha512"
     },
     "BouncyCastle.NetCore/1.8.3": {
       "type": "package",

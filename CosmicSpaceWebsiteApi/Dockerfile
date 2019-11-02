@@ -6,6 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
 COPY ["CosmicSpaceWebsiteApi/CosmicSpaceWebsiteApi.csproj", "CosmicSpaceWebsiteApi/"]
+COPY ["CosmicSpaceWebsiteDll/CosmicSpaceWebsiteDll.csproj", "CosmicSpaceWebsiteDll/"]
 RUN dotnet restore "CosmicSpaceWebsiteApi/CosmicSpaceWebsiteApi.csproj"
 COPY . .
 WORKDIR "/src/CosmicSpaceWebsiteApi"
