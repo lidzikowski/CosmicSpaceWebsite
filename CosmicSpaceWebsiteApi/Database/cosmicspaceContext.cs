@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using CosmicSpaceWebsiteDll;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CosmicSpaceWebsiteApi.Database
 {
@@ -743,7 +741,8 @@ namespace CosmicSpaceWebsiteApi.Database
 
                 entity.Property(e => e.Progress)
                     .HasColumnName("progress")
-                    .HasColumnType("bigint(20) unsigned");
+                    .HasColumnType("bigint(20) unsigned")
+                    .HasDefaultValueSql("0");
 
                 entity.Property(e => e.Questid)
                     .HasColumnName("questid")

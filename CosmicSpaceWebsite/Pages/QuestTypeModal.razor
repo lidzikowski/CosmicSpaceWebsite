@@ -1,0 +1,212 @@
+﻿
+@inject HttpClient Http
+
+@inject IModalService ModalService
+@inject IToastService toastService
+
+@if (Questtypes == null || Maps == null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="overflow-auto" style="max-height: 200px;">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Cel zadania</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Questtypes questtypes in Questtypes)
+                {
+                    <tr>
+                        <td>
+                            <input type="radio"
+                                   name="questtype"
+                                   checked="@(QuestType?.Questtypeid == questtypes.Questtypeid)"
+                                   @onchange="@(() => QuestType = questtypes)" />
+                        </td>
+
+                        <td>
+                            @questtypes.Questtypename
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Mapy (Baza danych):</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Maps map in Maps)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@map.Mapid] @map.Mapname</p>
+                                    </th>
+
+                                    <td>
+                                        <button class="btn btn-warning" @onclick="@(e =>
+                                        {
+                                            SelectedMaps.Add(map);
+                                            Maps.Remove(map);
+                                        })">
+                                            Wybierz
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Lista wybranych map:</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Maps map in SelectedMaps)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@map.Mapid] @map.Mapname</p>
+                                    </th>
+
+                                    <td>
+                                        <button class="btn btn-danger" @onclick="@(e =>
+                                        {
+                                            Maps.Add(map);
+                                            Maps = Maps.OrderBy(o => o.Mapid).ToList();
+                                            SelectedMaps.Remove(map);
+                                        })">
+                                            Usuń
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Cel (Id z bazy):</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@TargetId" />
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Ilość:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Quantity" />
+            </div>
+
+            <div class="col-sm">
+                <button class="btn btn-light float-right my-3" @onclick="Dodaj">
+                    Dodaj
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    ModalParameters Parameters { get; set; }
+
+    private IEnumerable<Questtypes> Questtypes;
+    private List<Maps> Maps;
+
+    public Questtypes QuestType;
+    public string TargetId;
+    public string Quantity;
+    private List<Maps> SelectedMaps = new List<Maps>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Questtypes = await Utils.HttpGetAsync<IEnumerable<Questtypes>>(Http, ApiTypeService.game, ApiService.GetQuestTypes);
+        Maps = await Utils.HttpGetAsync<List<Maps>>(Http, ApiTypeService.game, ApiService.GetMaps);
+    }
+
+    private async Task Dodaj()
+    {
+        long.TryParse(TargetId, out long targetId);
+
+        QuestTypes[] targetRequired = new QuestTypes[]
+        {
+            QuestTypes.ZabijNPC,
+            QuestTypes.ZabijGracz,
+            QuestTypes.ZbierzSurowiec,
+            QuestTypes.PrzejdzNaMape
+        };
+
+        if (QuestType != null && long.TryParse(Quantity, out long quantity))
+        {
+            if (targetRequired.Any(o => (byte)o == QuestType.Questtypeid) && targetId < 1)
+            {
+                toastService.ShowError("Target jest wymagany do tego typu zadania.");
+                return;
+            }
+
+            if (await Utils.HttpGetAsync<bool>(Http, ApiTypeService.game, ApiService.AddQuestTypes, new Dictionary<string, object>()
+        {
+            { "questTypeId", QuestType.Questtypeid },
+            { "targetId", targetId > 0 ? targetId :(long?)null },
+            { "quantity", quantity },
+            { "selectedMaps", DllUtils.SerializeObject(SelectedMaps) },
+        }))
+            {
+                toastService.ShowSuccess("Dodano zadanie.");
+                ModalService.Close(ModalResult.Ok(new object()));
+            }
+            else
+            {
+                toastService.ShowError("Błąd api.");
+            }
+        }
+        else
+        {
+            toastService.ShowError("Błąd podczas walidacji.");
+        }
+    }
+}

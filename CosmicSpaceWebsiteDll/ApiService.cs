@@ -3,6 +3,17 @@
     public enum ApiService
     {
         GetUser,
-        GetPilots
+        GetPilots,
+        GetTasks,
+
+        GetQuestTypes,
+        AddQuestTypes,
+
+        GetRewards,
+        GetMaps,
+
+        GetQuests,
+        AddQuests,
+
     }
 }

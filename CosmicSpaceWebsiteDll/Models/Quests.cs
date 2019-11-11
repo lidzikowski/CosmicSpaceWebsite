@@ -14,8 +14,8 @@ namespace CosmicSpaceWebsiteDll
 
         public int Questid { get; set; }
         public byte Questtypeid { get; set; }
-        public long Targetid { get; set; }
-        public long Quantity { get; set; }
+        public long? Targetid { get; set; }
+        public long? Quantity { get; set; }
 
         public virtual Questtypes Questtype { get; set; }
         public virtual ICollection<Pilottaskquest> Pilottaskquest { get; set; }

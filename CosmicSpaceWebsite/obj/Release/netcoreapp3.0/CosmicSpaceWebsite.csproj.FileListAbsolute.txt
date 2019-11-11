@@ -300,3 +300,5 @@ C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Relea
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Release\netcoreapp3.0\CosmicSpaceWebsite.csproj.CopyComplete
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Release\netcoreapp3.0\CosmicSpaceWebsite.dll
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Release\netcoreapp3.0\CosmicSpaceWebsite.pdb
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Release\netcoreapp3.0\RazorDeclaration\Pages\Quests.razor.g.cs
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsite\obj\Release\netcoreapp3.0\Razor\Pages\Quests.razor.g.cs

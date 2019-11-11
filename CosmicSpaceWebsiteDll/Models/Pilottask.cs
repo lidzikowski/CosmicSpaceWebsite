@@ -13,7 +13,7 @@ namespace CosmicSpaceWebsiteDll
         public long Pilottaskid { get; set; }
         public long Pilotid { get; set; }
         public int Taskid { get; set; }
-        public DateTime Startdate { get; set; }
+        public DateTime? Startdate { get; set; }
         public DateTime? Enddate { get; set; }
 
         public virtual Pilots Pilot { get; set; }

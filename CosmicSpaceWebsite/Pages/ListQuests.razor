@@ -1,0 +1,149 @@
+﻿@page "/listquests"
+
+@inject HttpClient Http
+@inject NavigationManager navigationManager
+@inject ISessionStorageService sessionStorage
+
+@inject IModalService Modal
+
+
+
+<h1>Quests</h1>
+
+@if (Tasks == null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div>
+        <p>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" @onclick="@(e =>
+        {
+            var parameters = new ModalParameters();
+            //parameters.Add(nameof(Pilots), Pilot);
+            Modal.Show<QuestTypeModal>("Nowy rodzaj zadania", parameters);
+        })">
+                Dodaj nowy rodzaj zadania
+            </button>
+        </p>
+        
+        <p>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" @onclick="@(e =>
+        {
+            var parameters = new ModalParameters();
+            //parameters.Add(nameof(Pilots), Pilot);
+            Modal.Show<QuestModal>("Nowe zadanie", parameters);
+        })">
+                Dodaj nowe zadanie
+            </button>
+        </p>
+    </div>
+
+    <div>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Nagroda</th>
+                    <th scope="col">Cel zadania</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Tasks task in Tasks)
+                {
+                    <tr>
+                        <td>@task.Taskid</td>
+                        <td>@task.Taskname</td>
+                        <td>@task.Level</td>
+                        <td>
+                            @if (task.Reward.Experience != default)
+                            {
+                                <p>Doświadczenie @task.Reward.Experience</p>
+                            }
+                            @if (task.Reward.Metal != default)
+                            {
+                                <p>Metal @task.Reward.Metal</p>
+                            }
+                            @if (task.Reward.Scrap != default)
+                            {
+                                <p>Scrap @task.Reward.Scrap</p>
+                            }
+                            @if (task.Reward.Ammunitionid != default)
+                            {
+                                <p>Amunicja [@task.Reward.Ammunitionid]                     @task.Reward.AmmunitionQuantity</p>
+                            }
+                            @if (task.Reward.Itemreward != default)
+                            {
+                                @foreach (Itemreward itemreward in task.Reward.Itemreward)
+                                {
+                                    <p>Przedmiot: @itemreward.Item.Name (@itemreward.Upgradelevel lvl)  [Szansa: @(itemreward.Chance / 10) %]</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (Taskquest taskquest in task.Taskquest)
+                            {
+                                <p>@taskquest.Questid => @taskquest.Quest.Questtype.Questtypename</p>
+
+                                @if (taskquest.Quest.Targetid != default)
+                                {
+                                    <p>Cel: @taskquest.Quest.Targetid</p>
+                                }
+
+                                <p>Ilość: @taskquest.Quest.Quantity</p>
+
+                                @if (taskquest.Quest.Questmap != default)
+                                {
+                                    @foreach (Questmap questmap in taskquest.Quest.Questmap)
+                                    {
+                                        <p>Na mapie: @questmap.Map.Mapname</p>
+                                    }
+                                }
+                            }
+                        </td>
+                        <td>
+                            @*<button data-toggle="modal" data-target="#exampleModalCenter" @onclick="@(e =>
+        {
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(Pilots), pilot);
+            Modal.Show<AchievementModal>("Osiągnięcia gracza", parameters);
+        })">
+                                   Osiągnięcia
+                               </button>*@
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private IEnumerable<Tasks> Tasks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Tasks = await sessionStorage.GetItemAsync<IEnumerable<Tasks>>("allTasks");
+
+            if (Tasks == null)
+            {
+                Tasks = await Utils.HttpGetAsync<IEnumerable<Tasks>>(Http, ApiTypeService.game, ApiService.GetTasks);
+                Tasks = Tasks.OrderBy(o => o.Taskid).ThenBy(o => o.Level);
+                await sessionStorage.SetItemAsync("allTasks", Tasks);
+            }
+        }
+        catch { }
+    }
+}

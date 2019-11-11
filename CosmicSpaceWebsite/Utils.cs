@@ -1,4 +1,5 @@
 ﻿using CosmicSpaceWebsiteDll;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace CosmicSpaceWebsite
                 }
             }
 
+            Console.WriteLine(api);
             var response = await Http.GetAsync(api);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<T>();

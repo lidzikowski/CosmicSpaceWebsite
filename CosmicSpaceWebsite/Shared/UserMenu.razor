@@ -15,6 +15,16 @@
 }
 else
 {
+
+    @if (User.Userid >= 100 && User.Userid <= 106)
+    {
+        <NavLink class="list-group-item list-group-item-dark list-group-item-action" href="listquests">
+            <span class="oi oi-pencil" aria-hidden="true" /> Administracja - Quests
+        </NavLink>
+
+        <div class="list-group-item list-group-item-dark p-2" />
+    }
+
     <NavLink class="list-group-item list-group-item-dark list-group-item-action" href="userpanel">
         <span class="oi oi-person" aria-hidden="true" /> Panel użytkownika
         <span class="badge badge-primary badge-pill" style="float:right;">@User.Pilots.Nickname</span>

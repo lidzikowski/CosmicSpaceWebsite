@@ -1,0 +1,284 @@
+﻿
+@inject HttpClient Http
+
+@inject IModalService ModalService
+@inject IToastService toastService
+@inject ISessionStorageService sessionStorage
+
+@if (Rewards == null || Quests == null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <label class="text-dark">Nagroda:</label>
+        <div class="overflow-auto" style="max-height: 200px;">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Doświadczenie</th>
+                        <th scope="col">Metal</th>
+                        <th scope="col">Scrap</th>
+                        <th scope="col">Amunicja (sztuk)</th>
+                        <th scope="col">Przedmioty (level) [szansa]</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (Rewards reward in Rewards)
+                    {
+                        <tr>
+                            <th scope="row">
+                                <input type="radio"
+                                       name="reward"
+                                       checked="@(Task?.Rewardid == reward.Rewardid)"
+                                       @onchange="@(() => Task.Rewardid = reward.Rewardid)" />
+                            </th>
+
+                            <td>
+                                @if (reward.Experience != default)
+                                {
+                                    <p class="text-dark">@reward.Experience</p>
+                                }
+                            </td>
+
+                            <td>
+                                @if (reward.Metal != default)
+                                {
+                                    <p class="text-dark">@reward.Metal</p>
+                                }
+                            </td>
+
+                            <td>
+                                @if (reward.Scrap != default)
+                                {
+                                    <p class="text-dark">@reward.Scrap</p>
+                                }
+                            </td>
+
+                            <td>
+                                @if (reward.Ammunitionid != default)
+                                {
+                                    <p class="text-dark">@reward.Ammunitionid  (@reward.AmmunitionQuantity)</p>
+                                }
+                            </td>
+
+                            <td>
+                                @if (reward.Itemreward != default)
+                                {
+                                    @foreach (Itemreward itemreward in reward.Itemreward)
+                                    {
+                                        <p class="text-dark">@itemreward.Item.Name (@itemreward.Upgradelevel) [@(itemreward.Chance / 10) %]</p>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Zadania (Baza danych):</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col">Cel (Ilość)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Quests quest in Quests)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@quest.Questid] @quest.Questtype.Questtypename</p>
+
+                                        @if (quest.Questmap != default)
+                                        {
+                                            @foreach (Questmap questmap in quest.Questmap)
+                                            {
+                                                <p>Na mapie: @questmap.Map.Mapname</p>
+                                            }
+                                        }
+                                        
+                                        <button class="btn btn-warning" @onclick="@(e =>
+                                        {
+                                            Task.Taskquest.Add(new Taskquest()
+                                            {
+                                                Quest = quest,
+                                                Questid = quest.Questid,
+                                                Task = Task,
+                                                Taskid = Task.Taskid,
+                                            });
+                                            Quests.Remove(quest);
+                                        })">
+                                            Wybierz
+                                        </button>
+                                    </th>
+
+                                    <td>
+                                        @if (quest.Targetid != default)
+                                        {
+                                        <p class="text-dark">@quest.Targetid (@quest.Quantity)</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Lista wybranych zadań:</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa</th>
+                                <th scope="col">Cel (Ilość)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Taskquest taskquest in Task.Taskquest)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@taskquest.Quest.Questid] @taskquest.Quest.Questtype.Questtypename</p>
+
+                                        @if (taskquest.Quest.Questmap != default)
+                                        {
+                                            @foreach (Questmap questmap in taskquest.Quest.Questmap)
+                                            {
+                                                <p>Na mapie: @questmap.Map.Mapname</p>
+                                            }
+                                        }
+                                        
+                                        <button class="btn btn-danger" @onclick="@(e =>
+                                        {
+                                            Quests.Add(taskquest.Quest);
+                                            Quests = Quests.OrderBy(o => o.Questid).ToList();
+                                            Task.Taskquest.Remove(taskquest);
+                                        })">
+                                            Usuń
+                                        </button>
+                                    </th>
+
+                                    <td>
+                                        @if (taskquest.Quest.Targetid != default)
+                                        {
+                                        <p class="text-dark">@taskquest.Quest.Targetid (@taskquest.Quest.Quantity)</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Nazwa:</label>
+                <input type="text" class="text-dark"
+                       @bind-value="@Task.Taskname" />
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Level:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Task.Level" />
+            </div>
+
+            <div class="col-sm">
+                <button class="btn btn-light float-right my-3" @onclick="Dodaj">
+                    Dodaj
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    ModalParameters Parameters { get; set; }
+
+    private IEnumerable<Rewards> Rewards;
+    private List<Quests> Quests;
+
+    public Tasks Task = new Tasks();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Rewards = await Utils.HttpGetAsync<IEnumerable<Rewards>>(Http, ApiTypeService.game, ApiService.GetRewards);
+        Quests = await Utils.HttpGetAsync<List<Quests>>(Http, ApiTypeService.game, ApiService.GetQuests);
+    }
+
+    private async Task Dodaj()
+    {
+        if (string.IsNullOrEmpty(Task.Taskname) || Task.Level <= 0 || Task.Rewardid <= 0 || Task.Taskquest.Count < 1)
+        {
+            toastService.ShowError("Błąd podczas walidacji.");
+        }
+        else
+        {
+            Tasks copyTask = new Tasks()
+            {
+                Taskname = Task.Taskname,
+                Level = Task.Level,
+                Rewardid = Task.Rewardid
+            };
+
+            foreach (Taskquest taskquest in Task.Taskquest)
+            {
+                copyTask.Taskquest.Add(new Taskquest()
+                {
+                    Questid = taskquest.Questid
+                });
+            }
+
+            if (await Utils.HttpGetAsync<bool>(Http, ApiTypeService.game, ApiService.AddQuests, new Dictionary<string, object>()
+{
+            { "taskJson", DllUtils.SerializeObject(copyTask) }
+        }))
+            {
+                toastService.ShowSuccess("Dodano zadanie.");
+
+                var tasks = await Utils.HttpGetAsync<IEnumerable<Tasks>>(Http, ApiTypeService.game, ApiService.GetTasks);
+                tasks = tasks.OrderBy(o => o.Taskid).ThenBy(o => o.Level);
+                await sessionStorage.SetItemAsync("allTasks", tasks);
+
+                ModalService.Close(ModalResult.Ok(new object()));
+            }
+            else
+            {
+                toastService.ShowError("Błąd api.");
+            }
+        }
+    }
+}

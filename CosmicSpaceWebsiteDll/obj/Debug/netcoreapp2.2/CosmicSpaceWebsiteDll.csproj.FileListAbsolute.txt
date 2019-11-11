@@ -8,3 +8,13 @@ C:\Users\Lukasz\Documents\GitHub\CosmicSpaceGame\CosmicSpaceWebsite\CosmicSpaceW
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceGame\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.dll
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceGame\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.pdb
 C:\Users\Lukasz\Documents\GitHub\CosmicSpaceGame\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.csprojAssemblyReference.cache
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\bin\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.deps.json
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\bin\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.runtimeconfig.json
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\bin\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.runtimeconfig.dev.json
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\bin\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.dll
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\bin\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.pdb
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.csprojAssemblyReference.cache
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.AssemblyInfoInputs.cache
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.AssemblyInfo.cs
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.dll
+C:\Users\Lukasz\Documents\GitHub\CosmicSpaceWebsite\CosmicSpaceWebsiteDll\obj\Debug\netcoreapp2.2\CosmicSpaceWebsiteDll.pdb
