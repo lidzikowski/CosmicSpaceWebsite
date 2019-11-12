@@ -140,14 +140,12 @@ else
                 <input type="number" class="text-dark"
                        @bind-value="@Quantity" />
             </div>
-
-            <div class="col-sm">
-                <button class="btn btn-light float-right my-3" @onclick="Dodaj">
-                    Dodaj
-                </button>
-            </div>
         </div>
     </div>
+
+    <button class="btn btn-light float-right my-3" @onclick="Dodaj">
+        Dodaj
+    </button>
 }
 
 @code {
@@ -178,7 +176,7 @@ else
             QuestTypes.ZabijGracz,
             QuestTypes.ZbierzSurowiec,
             QuestTypes.PrzejdzNaMape
-        };
+            };
 
         if (QuestType != null && long.TryParse(Quantity, out long quantity))
         {
@@ -190,11 +188,11 @@ else
 
             if (await Utils.HttpGetAsync<bool>(Http, ApiTypeService.game, ApiService.AddQuestTypes, new Dictionary<string, object>()
         {
-            { "questTypeId", QuestType.Questtypeid },
-            { "targetId", targetId > 0 ? targetId :(long?)null },
-            { "quantity", quantity },
-            { "selectedMaps", DllUtils.SerializeObject(SelectedMaps) },
-        }))
+                { "questTypeId", QuestType.Questtypeid },
+                { "targetId", targetId > 0 ? targetId :(long?)null },
+                { "quantity", quantity },
+                { "selectedMaps", DllUtils.SerializeObject(SelectedMaps) },
+            }))
             {
                 toastService.ShowSuccess("Dodano zadanie.");
                 ModalService.Close(ModalResult.Ok(new object()));

@@ -9,8 +9,12 @@
         GetQuestTypes,
         AddQuestTypes,
 
+        AddRewards,
         GetRewards,
+
         GetMaps,
+        GetItems,
+        GetAmmunitions,
 
         GetQuests,
         AddQuests,

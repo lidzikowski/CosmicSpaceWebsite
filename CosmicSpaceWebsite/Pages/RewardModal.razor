@@ -1,0 +1,394 @@
+﻿
+@inject HttpClient Http
+
+@inject IModalService ModalService
+@inject IToastService toastService
+@inject ISessionStorageService sessionStorage
+
+@if (Items == null || Ammunitions == null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Doświadczenie:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Reward.Experience" />
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Metal:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Reward.Metal" />
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Scrap:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Reward.Scrap" />
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Ilość amunicji:</label>
+                <input type="number" class="text-dark"
+                       @bind-value="@Reward.AmmunitionQuantity" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="overflow-auto my-1" style="max-height: 200px;">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nazwa amunicji</th>
+                    <th scope="col">Rodzaj</th>
+                    <th scope="col">Mnożnik (Player | Enemy)</th>
+                    <th scope="col">Obrażenia</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        <input type="radio"
+                               name="ammunition"
+                               checked="@(Reward.Ammunition == default)"
+                               @onchange="@(() =>
+                                             {
+                                                 Reward.Ammunition = default;
+                                                 Reward.Ammunitionid = default;
+                                             })" />
+                    </td>
+
+                    <td>
+                        <p>Brak</p>
+                    </td>
+
+                    <td>
+                        <p>-</p>
+                    </td>
+
+                    <td>
+                        <p>-</p>
+                    </td>
+
+                    <td>
+                        <p>-</p>
+                    </td>
+                </tr>
+
+                @foreach (Ammunitions ammunition in Ammunitions)
+                {
+                    <tr>
+                        <td>
+                            <input type="radio"
+                                   name="ammunition"
+                                   checked="@(Reward.Ammunition?.Ammunitionid == ammunition.Ammunitionid)"
+                                   @onchange="@(() =>
+                                                {
+                                                    Reward.Ammunition = ammunition;
+                                                    Reward.Ammunitionid = ammunition.Ammunitionid;
+                                                })" />
+                        </td>
+                        
+                        <td>
+                            <p>[@ammunition.Ammunitionid] @ammunition.Ammunitionname</p>
+                        </td>
+
+                        <td>
+                            @if (ammunition.Isammunition == 1)
+                            {
+                                <p>Amunicja</p>
+                            }
+                            else
+                            {
+                                <p>Rakieta</p>
+                            }
+                        </td>
+                        
+                        <td>
+                            @if (ammunition.Isammunition == 1)
+                            {
+                                <p>@ammunition.Multiplierplayer / @ammunition.Multiplierenemy</p>
+                            }
+                            else
+                            {
+                                <p>-</p>
+                            }
+                        </td>
+                        
+                        <td>
+                            @if (ammunition.Isammunition == 0)
+                            {
+                                <p>@ammunition.Basedamage</p>
+                            }
+                            else
+                            {
+                                <p>-</p>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="container my-1">
+        <div class="row">
+            <div class="col-sm">
+                <label class="text-dark">Przedmioty (Baza danych):</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa / Typ</th>
+                                <th scope="col">Statystyki</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Items item in Items)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@item.Itemid] @item.Name</p>
+                                        
+                                        <p>@item.Itemtype.Itemtypename</p>
+
+                                        <button class="btn btn-warning" @onclick="@(e =>
+                                        {
+                                            Reward.Itemreward.Add(new Itemreward()
+                                            {
+                                                Item = item,
+                                                Itemid = item.Itemid,
+
+                                                Reward = Reward,
+
+                                                Chance = 1000,
+                                                Upgradelevel = 1,
+                                            });
+                                        })">
+                                            Wybierz
+                                        </button>
+                                    </th>
+
+                                    <td>
+                                        @if (item.Requiredlevel != default)
+                                        {
+                                            <p class="text-dark">Level: @item.Requiredlevel</p>
+                                        }
+                                        @if (item.LaserDamagePvp != default)
+                                        {
+                                            <p class="text-dark">Obrażenia PvP: @item.LaserDamagePvp</p>
+                                        }
+                                        @if (item.LaserDamagePve != default)
+                                        {
+                                            <p class="text-dark">Obrażenia PvE: @item.LaserDamagePve</p>
+                                        }
+                                        @if (item.LaserShotrange != default)
+                                        {
+                                            <p class="text-dark">Zasięg: @item.LaserShotrange</p>
+                                        }
+                                        @if (item.LaserShotdispersion != default)
+                                        {
+                                            <p class="text-dark">Rozproszenie: @item.LaserShotdispersion</p>
+                                        }
+                                        @if (item.GeneratorSpeed != default)
+                                        {
+                                            <p class="text-dark">Prędkość: @item.GeneratorSpeed</p>
+                                        }
+                                        @if (item.GeneratorShield != default)
+                                        {
+                                            <p class="text-dark">Osłona: @item.GeneratorShield</p>
+                                        }
+                                        @if (item.GeneratorShieldDivision != default)
+                                        {
+                                            <p class="text-dark">Podział osłon: @item.GeneratorShieldDivision</p>
+                                        }
+                                        @if (item.GeneratorShieldRepair != default)
+                                        {
+                                            <p class="text-dark">Czas naprawy: @item.GeneratorShieldRepair</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <label class="text-dark">Lista wybranych przedmiotów:</label>
+                <div class="overflow-auto" style="max-height: 300px;">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa / Typ</th>
+                                <th scope="col">Statystyki</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Itemreward itemreward in Reward.Itemreward)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <p>[@itemreward.Item.Itemid] @itemreward.Item.Name</p>
+
+                                        <p>@itemreward.Item.Itemtype.Itemtypename</p>
+
+                                        <p>
+                                            <label class="text-dark">Poziom ulepszenia:</label>
+                                            <input type="number" class="text-dark"
+                                                   @bind-value="@itemreward.Upgradelevel" />
+                                        </p>
+
+                                        <p>
+                                            <label class="text-dark">Szansa otrzymania (1-1000 10=1%):</label>
+                                            <input type="number" class="text-dark"
+                                                   @bind-value="@itemreward.Chance" />
+                                        </p>
+
+                                        <button class="btn btn-warning" @onclick="@(e =>
+                                        {
+                                            Itemreward item = Reward.Itemreward.First(o => o.Itemid == itemreward.Item.Itemid);
+                                            Reward.Itemreward.Remove(item);
+                                        })">
+                                            Usuń
+                                        </button>
+                                    </th>
+
+                                    <td>
+                                        @if (itemreward.Item.Requiredlevel != default)
+                                        {
+                                            <p class="text-dark">Level: @itemreward.Item.Requiredlevel</p>
+                                        }
+                                        @if (itemreward.Item.LaserDamagePvp != default)
+                                        {
+                                            <p class="text-dark">Obrażenia PvP: @itemreward.Item.LaserDamagePvp</p>
+                                        }
+                                        @if (itemreward.Item.LaserDamagePve != default)
+                                        {
+                                            <p class="text-dark">Obrażenia PvE: @itemreward.Item.LaserDamagePve</p>
+                                        }
+                                        @if (itemreward.Item.LaserShotrange != default)
+                                        {
+                                            <p class="text-dark">Zasięg: @itemreward.Item.LaserShotrange</p>
+                                        }
+                                        @if (itemreward.Item.LaserShotdispersion != default)
+                                        {
+                                            <p class="text-dark">Rozproszenie: @itemreward.Item.LaserShotdispersion</p>
+                                        }
+                                        @if (itemreward.Item.GeneratorSpeed != default)
+                                        {
+                                            <p class="text-dark">Prędkość: @itemreward.Item.GeneratorSpeed</p>
+                                        }
+                                        @if (itemreward.Item.GeneratorShield != default)
+                                        {
+                                            <p class="text-dark">Osłona: @itemreward.Item.GeneratorShield</p>
+                                        }
+                                        @if (itemreward.Item.GeneratorShieldDivision != default)
+                                        {
+                                            <p class="text-dark">Podział osłon: @itemreward.Item.GeneratorShieldDivision</p>
+                                        }
+                                        @if (itemreward.Item.GeneratorShieldRepair != default)
+                                        {
+                                            <p class="text-dark">Czas naprawy: @itemreward.Item.GeneratorShieldRepair</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-light float-right my-3" @onclick="Dodaj">
+        Dodaj
+    </button>
+}
+
+@code {
+    [CascadingParameter]
+    ModalParameters Parameters { get; set; }
+
+    private List<Items> Items;
+    private List<Ammunitions> Ammunitions;
+
+    public Rewards Reward = new Rewards();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Items = await Utils.HttpGetAsync<List<Items>>(Http, ApiTypeService.game, ApiService.GetItems);
+        Ammunitions = await Utils.HttpGetAsync<List<Ammunitions>>(Http, ApiTypeService.game, ApiService.GetAmmunitions);
+    }
+
+    private async Task Dodaj()
+    {
+        if (Reward.Experience < 0)
+        {
+            toastService.ShowError("Błąd podczas walidacji - Experience.");
+        }
+        else if (Reward.Metal < 0)
+        {
+            toastService.ShowError("Błąd podczas walidacji - Metal.");
+        }
+        else if (Reward.Scrap < 0)
+        {
+            toastService.ShowError("Błąd podczas walidacji - Scrap.");
+        }
+        else if (Reward.Ammunitionid != default && (Reward.AmmunitionQuantity == default || Reward.AmmunitionQuantity <= 0))
+        {
+            toastService.ShowError("Błąd podczas walidacji - Ammunition.");
+        }
+        else if (Reward.Itemreward.Any(o=>o.Upgradelevel <= 0 || o.Upgradelevel > 10 || o.Chance <= 0 || o.Chance > 1000))
+        {
+            toastService.ShowError("Błąd podczas walidacji - Items.");
+        }
+        else
+        {
+            Rewards copyReward = DllUtils.Clone(Reward);
+
+            copyReward.Ammunition = default;
+            
+            foreach (Itemreward itemreward in copyReward.Itemreward)
+            {
+                itemreward.Item = default;
+                itemreward.Reward = default;
+            }
+
+            if (await Utils.HttpGetAsync<bool>(Http, ApiTypeService.game, ApiService.AddRewards, new Dictionary<string, object>()
+            {
+                { "copyReward", DllUtils.SerializeObject(copyReward) }
+            }))
+            {
+                toastService.ShowSuccess("Dodano nagrodę.");
+
+                ModalService.Close(ModalResult.Ok(new object()));
+            }
+            else
+            {
+                toastService.ShowError("Błąd api.");
+            }
+        }
+    }
+}

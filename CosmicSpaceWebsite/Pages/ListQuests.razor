@@ -26,6 +26,17 @@ else
         {
             var parameters = new ModalParameters();
             //parameters.Add(nameof(Pilots), Pilot);
+            Modal.Show<RewardModal>("Nowa nagroda", parameters);
+        })">
+                Dodaj nową nagrodę
+            </button>
+        </p>
+
+        <p>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" @onclick="@(e =>
+        {
+            var parameters = new ModalParameters();
+            //parameters.Add(nameof(Pilots), Pilot);
             Modal.Show<QuestTypeModal>("Nowy rodzaj zadania", parameters);
         })">
                 Dodaj nowy rodzaj zadania
@@ -53,7 +64,6 @@ else
                     <th scope="col">Level</th>
                     <th scope="col">Nagroda</th>
                     <th scope="col">Cel zadania</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -109,16 +119,6 @@ else
                                     }
                                 }
                             }
-                        </td>
-                        <td>
-                            @*<button data-toggle="modal" data-target="#exampleModalCenter" @onclick="@(e =>
-        {
-            var parameters = new ModalParameters();
-            parameters.Add(nameof(Pilots), pilot);
-            Modal.Show<AchievementModal>("Osiągnięcia gracza", parameters);
-        })">
-                                   Osiągnięcia
-                               </button>*@
                         </td>
                     </tr>
                 }

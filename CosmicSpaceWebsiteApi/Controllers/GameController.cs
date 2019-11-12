@@ -147,6 +147,17 @@ namespace CosmicSpaceWebsiteApi.Controllers
 
 
 
+        [HttpGet(nameof(ApiService.AddRewards))]
+        public bool AddRewards(string copyReward)
+        {
+            Rewards reward = DllUtils.DeserializeObject<Rewards>(copyReward);
+
+            dbContext.Rewards
+                .Add(reward);
+
+            return dbContext.SaveChanges() > 0;
+        }
+
         [HttpGet(nameof(ApiService.GetRewards))]
         public IEnumerable<Rewards> GetRewards()
         {
@@ -167,6 +178,8 @@ namespace CosmicSpaceWebsiteApi.Controllers
             return rewards;
         }
 
+
+
         [HttpGet(nameof(ApiService.GetMaps))]
         public List<Maps> GetMaps()
         {
@@ -174,6 +187,30 @@ namespace CosmicSpaceWebsiteApi.Controllers
                 .ToList();
 
             return maps;
+        }
+
+        [HttpGet(nameof(ApiService.GetItems))]
+        public List<Items> GetItems()
+        {
+            List<Items> items = dbContext.Items
+                .Include(o => o.Itemtype)
+                .ToList();
+
+            foreach (Items item in items)
+            {
+                item.Itemtype.Items = default;
+            }
+
+            return items;
+        }
+
+        [HttpGet(nameof(ApiService.GetAmmunitions))]
+        public List<Ammunitions> GetAmmunitions()
+        {
+            List<Ammunitions> ammunitions = dbContext.Ammunitions
+                .ToList();
+
+            return ammunitions;
         }
 
 
@@ -202,7 +239,7 @@ namespace CosmicSpaceWebsiteApi.Controllers
         }
 
         [HttpGet(nameof(ApiService.AddQuests))]
-        public bool GetQuests(string taskJson)
+        public bool AddQuests(string taskJson)
         {
             Tasks task = DllUtils.DeserializeObject<Tasks>(taskJson);
 

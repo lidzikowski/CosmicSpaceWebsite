@@ -116,7 +116,7 @@ else
                                                 <p>Na mapie: @questmap.Map.Mapname</p>
                                             }
                                         }
-                                        
+
                                         <button class="btn btn-warning" @onclick="@(e =>
                                         {
                                             Task.Taskquest.Add(new Taskquest()
@@ -135,7 +135,7 @@ else
                                     <td>
                                         @if (quest.Targetid != default)
                                         {
-                                        <p class="text-dark">@quest.Targetid (@quest.Quantity)</p>
+                                            <p class="text-dark">@quest.Targetid (@quest.Quantity)</p>
                                         }
                                     </td>
                                 </tr>
@@ -173,7 +173,7 @@ else
                                                 <p>Na mapie: @questmap.Map.Mapname</p>
                                             }
                                         }
-                                        
+
                                         <button class="btn btn-danger" @onclick="@(e =>
                                         {
                                             Quests.Add(taskquest.Quest);
@@ -187,7 +187,7 @@ else
                                     <td>
                                         @if (taskquest.Quest.Targetid != default)
                                         {
-                                        <p class="text-dark">@taskquest.Quest.Targetid (@taskquest.Quest.Quantity)</p>
+                                            <p class="text-dark">@taskquest.Quest.Targetid (@taskquest.Quest.Quantity)</p>
                                         }
                                     </td>
                                 </tr>
@@ -214,14 +214,12 @@ else
                 <input type="number" class="text-dark"
                        @bind-value="@Task.Level" />
             </div>
-
-            <div class="col-sm">
-                <button class="btn btn-light float-right my-3" @onclick="Dodaj">
-                    Dodaj
-                </button>
-            </div>
         </div>
     </div>
+
+    <button class="btn btn-light float-right my-3" @onclick="Dodaj">
+        Dodaj
+    </button>
 }
 
 @code {
@@ -263,9 +261,9 @@ else
             }
 
             if (await Utils.HttpGetAsync<bool>(Http, ApiTypeService.game, ApiService.AddQuests, new Dictionary<string, object>()
-{
-            { "taskJson", DllUtils.SerializeObject(copyTask) }
-        }))
+        {
+                { "taskJson", DllUtils.SerializeObject(copyTask) }
+            }))
             {
                 toastService.ShowSuccess("Dodano zadanie.");
 
